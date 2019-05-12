@@ -1,25 +1,51 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter as Router,Route, Link} from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import Home from "./Component/Home";
+import Login from "./Component/Login";
+import SignUp from "./Component/SignUp";
+import Contact from "./Component/Contact"
+
+import logo from "./Ticket-logo3.png.jpg";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+    <div className="container">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <img src={logo} width="30" height="30" />
+
+            <Link to="/" className="navbar-brand">TRAIN TICKET RESERVATION SYSTEM</Link>
+            <div className="collapse navbar-collapse">
+                <ul className="navbar-nav mr-auto">
+
+                    <li className="navbar-nav">
+                        <Link to="/" className="nav-link">Home</Link>
+                    </li>
+
+                    <li className="navbar-nav">
+                        <Link to="/Login" className="nav-link">Login</Link>
+                    </li>
+
+                    <li className="navbar-nav">
+                        <Link to="/SignUp" className="nav-link">SignUp</Link>
+                    </li>
+
+                    <li className="navbar-nav">
+                        <Link to="/Contact" className="nav-link">Contact</Link>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+
+        <Route path="/" exact component={Home}/>
+        <Route path="/Login" exact component={Login}/>
+        <Route path="/SignUp" exact component={SignUp}/>
+        <Route path="/Contact" exact component={Contact}/>
     </div>
+      </Router>
   );
 }
 
