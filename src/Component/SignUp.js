@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-
+import axios from 'axios';
 export default class SignUp extends Component{
     constructor(props){
         super(props);
@@ -57,6 +57,18 @@ export default class SignUp extends Component{
         console.log(`signup success`);
         console.log(`username is:${this.state.user_name}`);
         console.log(`password is:${this.state.password}`);
+
+        const newUser = {
+            user_name: this.state.user_name,
+            email:this.state.email,
+            password:this.state.password,
+            confirm_password:this.state.confirm_password,
+            address:this.state.address,
+            SignUp_completed:this.state.SignUp_completed
+        }
+
+        axios.post('http://localhost:4000/ticket/add', newUser)
+            .then(res => console.log(res.data));
 
         this.setState({
             user_name: '',
