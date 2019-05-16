@@ -22,7 +22,7 @@ export default class Contact extends Component{
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/ticket')
+        axios.get('http://localhost:4000/sign')
             .then(response => {
                 this.setState({ticket: response.data})
             })

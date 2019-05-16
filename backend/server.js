@@ -4,7 +4,9 @@ const bodyPaser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-const userRoutes = express.Router();
+
+const signRoute = express.Router();
+const trainRoute = express.Router();
 const PORT = 4000;
 
 
@@ -13,6 +15,7 @@ app.use(cors());
 app.use(bodyPaser.json());
 
 const User = require('./user.modle');
+const Train = require('./train.modle');
 
 mongoose.connect('mongodb://127.0.0.1:27017/ticket',{useNewUrlParser: true}, function (err) {
     if(err){
@@ -23,7 +26,37 @@ mongoose.connect('mongodb://127.0.0.1:27017/ticket',{useNewUrlParser: true}, fun
     }
 });
 
-userRoutes.route('/').get(function (req, res) {
+trainRoute.route('/').get(function (req, res) {
+    Train.find(function (err, ticket) {
+        if(err){
+            console.log(err);
+        }else {
+            res.json(ticket);
+        }
+    });
+});
+
+
+trainRoute.route('/:id').get(function (req, res) {
+
+    let id = req.params.id;
+    Train.findById(id,function (err, ticket) {
+        res.json(ticket);
+    });
+});
+
+trainRoute.route('/add').post(function (req, res) {
+    let train = new Train(req.body);
+    train.save()
+        .then(train => {
+            res.status(200).json({'user': 'train added successfully'});
+        })
+        .catch(err => {
+            res.status(400).send('adding new train failed')
+        });
+});
+
+signRoute.route('/').get(function (req, res) {
     User.find(function (err, ticket) {
         if(err){
             console.log(err);
@@ -34,7 +67,7 @@ userRoutes.route('/').get(function (req, res) {
 });
 
 
-userRoutes.route('/:id').get(function (req, res) {
+signRoute.route('/:id').get(function (req, res) {
 
     let id = req.params.id;
     User.findById(id,function (err, ticket) {
@@ -42,7 +75,7 @@ userRoutes.route('/:id').get(function (req, res) {
     });
 });
 
-userRoutes.route('/add').post(function (req, res) {
+signRoute.route('/add').post(function (req, res) {
     let user = new User(req.body);
     user.save()
         .then(user => {
@@ -53,7 +86,41 @@ userRoutes.route('/add').post(function (req, res) {
         });
 });
 
-app.use('/ticket', userRoutes);
+
+/*
+signRoute.route('update/:id').post(function (req, res) {
+    User.findById(req.params.id, function (err, user) {
+        if(!user)
+        {
+            res.status(404).send('data is not found');
+        }
+
+        else
+        {
+            user.user_name = req.body.user_name;
+            user.email = req.body.email;
+            user.password = req.body.password;
+            user.confirm_password = req.body.confirm_password;
+            user.address = req.body.address;
+            user.SignUp_completed = req.body.SignUp_completed;
+
+        }
+
+            user.save().then(user => {
+                res.json('user updated');
+            })
+
+                .catch(err => {
+                    res.status(400).send("update not possible")
+                });
+    });
+});
+*/
+
+
+
+app.use('/sign', signRoute);
+app.use('/train', trainRoute);
 
 
 app.listen(PORT, function () {

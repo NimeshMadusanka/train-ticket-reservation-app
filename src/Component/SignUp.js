@@ -67,7 +67,7 @@ export default class SignUp extends Component{
             SignUp_completed:this.state.SignUp_completed
         }
 
-        axios.post('http://localhost:4000/ticket/add', newUser)
+        axios.post('http://localhost:4000/sign/add', newUser)
             .then(res => console.log(res.data));
 
         this.setState({
