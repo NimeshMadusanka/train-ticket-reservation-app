@@ -5,7 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./Component/Home";
 import Login from "./Component/Login";
 import SignUp from "./Component/SignUp";
-import Contact from "./Component/Contact"
+import Contact from "./Component/Contact";
+import Edit from "./Component/Edit";
 
 import logo from "./Ticket-logo3.png.jpg";
 
@@ -44,6 +45,8 @@ function App() {
         <Route path="/Login" exact component={Login}/>
         <Route path="/SignUp" exact component={SignUp}/>
         <Route path="/Contact" exact component={Contact}/>
+        <Route path="/edit/:id" exact component={Edit}/>
+
     </div>
       </Router>
   );

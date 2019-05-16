@@ -87,26 +87,23 @@ signRoute.route('/add').post(function (req, res) {
 });
 
 
-/*
-signRoute.route('update/:id').post(function (req, res) {
-    User.findById(req.params.id, function (err, user) {
-        if(!user)
-        {
+signRoute.route('/update/:id').post(function (req, res) {
+    User.findById(req.params.id, function (err, ticket) {
+        if(!ticket)
             res.status(404).send('data is not found');
-        }
+
 
         else
-        {
-            user.user_name = req.body.user_name;
-            user.email = req.body.email;
-            user.password = req.body.password;
-            user.confirm_password = req.body.confirm_password;
-            user.address = req.body.address;
-            user.SignUp_completed = req.body.SignUp_completed;
+            ticket.user_name = req.body.user_name;
+            ticket.email = req.body.email;
+            ticket.password = req.body.password;
+            ticket.confirm_password = req.body.confirm_password;
+            ticket.address = req.body.address;
+            ticket.SignUp_completed = req.body.SignUp_completed;
 
-        }
 
-            user.save().then(user => {
+
+            ticket.save().then(user => {
                 res.json('user updated');
             })
 
@@ -115,7 +112,6 @@ signRoute.route('update/:id').post(function (req, res) {
                 });
     });
 });
-*/
 
 
 

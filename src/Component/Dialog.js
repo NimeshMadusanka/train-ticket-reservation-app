@@ -49,7 +49,7 @@ export default class Dialog extends Component{
                 <h2>Dialog Payment</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <label>Phone Numbeer:</label>
+                        <label>Phone Number:</label>
                         <input  type="text"
                                 className="form-control"
                                 value={this.state.user_name}

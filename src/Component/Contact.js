@@ -2,14 +2,16 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import axios from 'axios';
 
+//uerlist component
+
 const User = props => (
     <tr>
-        <td>{props.user.user_name}</td>
-        <td>{props.user.email}</td>
-        <td>{props.user.password}</td>
-        <td>{props.user.address}</td>
+        <td className={props.user.SignUp_completed ? 'completed':''}>{props.user.user_name}</td>
+        <td className={props.user.SignUp_completed ? 'completed':''}>{props.user.email}</td>
+        <td className={props.user.SignUp_completed ? 'completed':''}>{props.user.password}</td>
+        <td className={props.user.SignUp_completed ? 'completed':''}>{props.user.address}</td>
         <td>
-            <Link to={"/edit"+props.user._id}>Edit</Link>
+            <Link to={"/edit/"+props.user._id}>Edit</Link>
         </td>
     </tr>
 )
@@ -38,6 +40,7 @@ export default class Contact extends Component{
     }
     render() {
         return(
+
             <div>
                 <h2>New Users</h2>
                 <table className="table table-striped" style={{marginTop:20}}>
@@ -56,6 +59,7 @@ export default class Contact extends Component{
                 </table>
 
             </div>
+
         )
     }
 
