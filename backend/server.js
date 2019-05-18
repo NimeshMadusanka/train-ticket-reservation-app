@@ -7,6 +7,9 @@ const mongoose = require('mongoose');
 
 const signRoute = express.Router();
 const trainRoute = express.Router();
+const dpaymentRoute = express.Router();
+const spaymentRoute = express.Router();
+
 const PORT = 4000;
 
 
@@ -16,6 +19,9 @@ app.use(bodyPaser.json());
 
 const User = require('./user.modle');
 const Train = require('./train.modle');
+const Spayment = require('./Spayment.model');
+const Dpayment = require('./Dpayment.model');
+
 
 mongoose.connect('mongodb://127.0.0.1:27017/ticket',{useNewUrlParser: true}, function (err) {
     if(err){
@@ -24,6 +30,67 @@ mongoose.connect('mongodb://127.0.0.1:27017/ticket',{useNewUrlParser: true}, fun
     else{
         console.log("Mongodb database connection established successfully");
     }
+});
+
+spaymentRoute.route('/').get(function (req, res) {
+    Spayment.find(function (err, ticket) {
+        if(err){
+            console.log(err);
+        }else {
+            res.json(ticket);
+        }
+    });
+});
+
+
+spaymentRoute.route('/:id').get(function (req, res) {
+
+    let id = req.params.id;
+    Spayment.findById(id,function (err, ticket) {
+        res.json(ticket);
+    });
+});
+
+spaymentRoute.route('/add').post(function (req, res) {
+    let spayment = new Spayment(req.body);
+    spayment.save()
+        .then(spayment => {
+            res.status(200).json({'payment': 'payment added successfully'});
+        })
+        .catch(err => {
+            res.status(400).send('adding new payment failed')
+        });
+});
+
+
+dpaymentRoute.route('/').get(function (req, res) {
+    Dpayment.find(function (err, ticket) {
+        if(err){
+            console.log(err);
+        }else {
+            res.json(ticket);
+        }
+    });
+});
+
+
+dpaymentRoute.route('/:id').get(function (req, res) {
+
+    let id = req.params.id;
+    Dpayment.findById(id,function (err, ticket) {
+        res.json(ticket);
+    });
+});
+
+dpaymentRoute.route('/add').post(function (req, res) {
+    let dpayment = new Dpayment(req.body);
+    dpayment.save()
+        .then(dpayment => {
+            res.status(200).json({'payment': 'payment added successfully'});
+        })
+        .catch(err => {
+            res.status(400).send('adding new payment failed')
+        });
 });
 
 trainRoute.route('/').get(function (req, res) {
@@ -117,6 +184,8 @@ signRoute.route('/update/:id').post(function (req, res) {
 
 app.use('/sign', signRoute);
 app.use('/train', trainRoute);
+app.use('/dialog_payment', dpaymentRoute);
+app.use('/sampath_payment', spaymentRoute);
 
 
 app.listen(PORT, function () {

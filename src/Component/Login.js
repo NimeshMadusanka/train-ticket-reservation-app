@@ -42,6 +42,8 @@ export default class Login extends Component{
             password: '',
             login_completed: false
         })
+
+        this.props.history.push('/pay');
     }
     render() {
         return(

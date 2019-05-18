@@ -7,6 +7,7 @@ import Login from "./Component/Login";
 import SignUp from "./Component/SignUp";
 import Contact from "./Component/Contact";
 import Edit from "./Component/Edit";
+import Pay from "./Component/Pay";
 
 import logo from "./Ticket-logo3.png.jpg";
 
@@ -46,6 +47,9 @@ function App() {
         <Route path="/SignUp" exact component={SignUp}/>
         <Route path="/Contact" exact component={Contact}/>
         <Route path="/edit/:id" exact component={Edit}/>
+        <Route path="/pay/:id" exact component={Pay}/>
+        <Route path="/pay" exact component={Pay}/>
+
 
     </div>
       </Router>

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 import axios from 'axios';
 export default class SignUp extends Component{
+
+
     constructor(props){
         super(props);
 
@@ -70,6 +72,8 @@ export default class SignUp extends Component{
         axios.post('http://localhost:4000/sign/add', newUser)
             .then(res => console.log(res.data));
 
+        this.props.history.push('/Login');
+
         this.setState({
             user_name: '',
             email:'',
@@ -78,6 +82,7 @@ export default class SignUp extends Component{
             address:'',
             SignUp_completed: false
         })
+
     }
     render() {
         return(

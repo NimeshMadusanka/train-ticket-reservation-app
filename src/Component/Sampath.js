@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from "axios";
 
 
 export default class Sampath extends Component{
@@ -53,12 +54,25 @@ export default class Sampath extends Component{
         console.log(`username is:${this.state.cvv}`);
         console.log(`password is:${this.state.card_number}`);
 
+        const newPayment = {
+            card_holder_name: this.state.card_holder_name,
+            card_number:this.state.card_number,
+            cvv:this.state.cvv,
+            cash_in_point:this.state.cash_in_point,
+            Spayment_completed:this.state.Spayment_completed
+        }
+
+        axios.post('http://localhost:4000/sampath_payment/add', newPayment)
+            .then(res => console.log(res.data));
+
+        this.props.history.push('/Home');
+
         this.setState({
             card_holder_name: '',
             card_number: '',
             cvv:'',
             cash_in_point:'',
-            login_completed: false
+            Spayment_completed: false
         })
     }
     render() {
